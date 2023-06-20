@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from "react-router-dom";
+import { NavBar } from "./component/NavBar";
+import { NotFound } from "./pages/NotFound";
+import { Home } from "./pages/Home";
+import Admin from './pages/Admin';
+const Tools = lazy(() => import('./pages/Tools'))
+const Tutorial = lazy(() => import('./pages/Tutorial'))
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='Tools' element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <Tools />
+          </Suspense>
+        }
+        />
+        <Route path='Tutorial' element={
+          <Suspense fallback={<div>Loading...</div>}>
+            <Tutorial />
+          </Suspense>
+        } />
+        <Route path='Admin' element={<Admin />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
