@@ -7,8 +7,11 @@
     "author": "",
     "license": "ISC",
     "scripts": {
-        "install:all": "npm install && cd frontend && npm install && cd .. && cd backend && npm install",
+        "install:all": "pnpm install && cd frontend && pnpm install && cd .. && cd backend && pnpm install",
         "start": "cd frontend && npm start",
         "server": "cd backend && yarn server"
+    },
+    "dependencies": {
+        "pnpm": "^8.6.3"
     }
 }
