@@ -1,15 +1,28 @@
 <h1 align="center">Virtual Makerspace</h1>
   
 ## Development  
-#### Install the dependencies
+### Use Specific NodeJS Version  
+This can switch NodeJS version to v18.16.0(You should first have NodeJS v18.16.0 installed)
+
+```sh
+nvm use
+```
+
+### Install the dependencies
 
 This will install all dependencies for the app
 
 ```sh
-npm run install:all
+pnpm install:all
 ```
 
-#### Start database
+### Start React app(frontend)
+
+```sh
+pnpm start
+```
+
+### Start database
 
 This will have postgres and adminer running for the backend
 
@@ -17,24 +30,18 @@ This will have postgres and adminer running for the backend
 docker-compose up -d
 ```
 
-#### Start React app(frontend)
-
-```sh
-npm start
-```
-
-#### Test Prisma(backend)
+### Test Prisma(backend)
 
 ```sh
 cd backend
-npm run generate
-npm run migrate
+pnpm generate
+pnpm migrate
 ```
 
 you can then use adminer at port 8080, or run
 
 ```sh
-npm run studio
+pnpm studio
 ```
 
 to open up prisma studio to check whether the data is properly saved
