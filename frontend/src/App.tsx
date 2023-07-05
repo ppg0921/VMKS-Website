@@ -17,7 +17,7 @@ const Material = lazy(() => import('./component/MaterialAndTool/Material'))
 const Tool = lazy(() => import('./component/MaterialAndTool/Tool'))
 function App() {
   return (
-    <body>
+    <div>
       <NavBar />
       <Routes>
         <Route path='/' element={<HomePage />} />
@@ -75,7 +75,7 @@ function App() {
         <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
-    </body>
+    </div>
   );
 }
 
