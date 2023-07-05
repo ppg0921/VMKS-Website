@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom"
 
-const Tutorial = () => {
+const ShoppingList = () => {
   const navigate = useNavigate()
   return (
     <>
-      <div>Tutorial Page</div>
-      <p>理應要有新手教學</p>
+      <div>借用一覽</div>
+      <p>應該要有所有使用者借用的材料</p>
       <button onClick={() => navigate(-1)}>go back</button>
     </>
   )
 }
 
-export default Tutorial
+export default ShoppingList
