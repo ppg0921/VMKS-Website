@@ -10,8 +10,98 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Announcement {
+  id      Int      @id @default(autoincrement())
+  title   String
+  date    DateTime
+  content String
+}
+
+model DisposableMaterial {
+  id           Int     @id @default(autoincrement())
+  name         String
+  partName     String?
+  category     String
+  position     String
+  description  String
+  photoLink    String
+  usage        Int
+  tutorialLink String
+  fee          Int
+  remain       Boolean
+}
+
+model Material {
+  id           Int     @id @default(autoincrement())
+  name         String
+  partName     String?
+  category     String
+  valuable     Boolean
+  position     String
+  description  String
+  photoLink    String
+  usage        Int
+  tutorialLink String
+  remain       Int
+}
+
+model Tool {
+  id           Int     @id @default(autoincrement())
+  name         String
+  partName     String?
+  category     String
+  position     String
+  description  String
+  photoLink    String
+  usage        Int
+  tutorialLink String
+  remain       Int
+}
+
+model Machine {
+  id           Int     @id @default(autoincrement())
+  name         String
+  partName     String?
+  category     String
+  position     String
+  description  String
+  photoLink    String
+  usage        Int
+  tutorialLink String
+}
+
+model ThreeDP {
+  id           Int    @id @default(autoincrement())
+  name         String
+  category     String
+  position     String
+  description  String
+  photoLink    String
+  usage        Int
+  tutorialLink String
+  waiting      User[]
+}
+
 model User {
-  id       Int    @id
-  name     String @unique
-  password String
+  id                Int            @id @default(autoincrement())
+  name              String
+  studentID         String
+  password          String
+  photoLink         String
+  threeDPUse        ThreeDP?       @relation(fields: [threeDPId], references: [id])
+  threeDPId         Int            @default(0)
+  laserCutAvailable Boolean        @default(false)
+  borrowHistory     UserMaterial[]
+}
+
+model UserMaterial {
+  id         Int       @id @default(autoincrement())
+  name       String
+  partName   String?
+  borrower   User      @relation(fields: [borrowerId], references: [id])
+  borrowerId Int
+  borrowNum  Int
+  borrowDate DateTime
+  returnDate DateTime?
+  status     String
 }

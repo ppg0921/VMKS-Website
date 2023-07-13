@@ -19,8 +19,10 @@ pnpm install:all
 ### Start React app(frontend)
 
 ```sh
-pnpm start
+pnpm frontend
 ```
+
+This will run react app at port 3000
 
 ### Start database
 
@@ -29,6 +31,14 @@ This will have postgres and adminer running for the backend
 ```sh
 docker-compose up -d
 ```
+
+### Start Apollo Server(backend)
+
+```sh
+pnpm backend
+```
+
+This will run apollo graphql playground at port 5000
 
 ### Test Prisma(backend)
 
