@@ -8,8 +8,8 @@
     "license": "ISC",
     "scripts": {
         "install:all": "pnpm install && cd frontend && pnpm install && cd .. && cd backend && pnpm install",
-        "start": "cd frontend && npm start",
-        "server": "cd backend && yarn server"
+        "frontend": "cd frontend && pnpm start",
+        "backend": "cd backend && pnpm start"
     },
     "dependencies": {
         "pnpm": "^8.6.3"
