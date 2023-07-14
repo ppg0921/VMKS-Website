@@ -11,9 +11,9 @@ datasource db {
 }
 
 model Announcement {
-  id      Int      @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
   title   String
-  date    DateTime
+  date    String
   content String
 }
 
@@ -27,7 +27,7 @@ model DisposableMaterial {
   photoLink    String
   usage        Int
   tutorialLink String
-  fee          Int
+  fee          Int?
   remain       Boolean
 }
 
@@ -42,6 +42,7 @@ model Material {
   photoLink    String
   usage        Int
   tutorialLink String
+  fee          Int
   remain       Int
 }
 
