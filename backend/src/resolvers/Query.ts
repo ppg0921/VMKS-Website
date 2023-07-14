@@ -5,6 +5,10 @@ const Query = {
     const announcements = await prisma.announcement.findMany();
     // console.log(announcements);
     return announcements;
+  },
+  AllTools: async () => {
+    const tools = await prisma.tool.findMany();
+    return tools;
   }
 }
 
