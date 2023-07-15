@@ -8,6 +8,20 @@ const typeDefs = `#graphql
     content: String!
   }
 
+  type DisposableMaterial {
+    id: Int!     
+    name: String!
+    partName: String
+    category: String!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+    fee: Int
+    remain: Boolean!
+  }
+
   type Tool {
     id: Int!
     name: String!
@@ -26,6 +40,7 @@ const typeDefs = `#graphql
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     AllAnnouncements: [Announcement]
+    AllDisposableMaterials: [DisposableMaterial]
     AllTools: [Tool]
   }
 
