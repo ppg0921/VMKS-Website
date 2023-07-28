@@ -9,6 +9,11 @@ const Query = {
   AllTools: async () => {
     const tools = await prisma.tool.findMany();
     return tools;
+  }, 
+  AllDisposableMaterials: async() => {
+    const materials = await prisma.disposableMaterial.findMany();
+    // console.log(materials);
+    return materials;
   }
 }
 
