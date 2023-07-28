@@ -40,6 +40,18 @@ const typeDefs = `#graphql
     remain: Int!
   }
 
+  type Machine {
+    id: Int!
+    name: String!
+    partName: String
+    category: String!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+  }
+
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
