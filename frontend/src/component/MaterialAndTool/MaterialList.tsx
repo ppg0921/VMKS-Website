@@ -17,7 +17,7 @@ export const MaterialList = (props: MaterialProps) => {
             {props.materials.map(material => {
                 return (
                     <div className="mateirial-preview" key={material.id}>
-                        <Link to={`/blogs/${material.id}`}>
+                        <Link to={`/Material/${material.id}`}>
                             <div>
                                 <h2>{material.name}</h2>
                                 <p>Position: {material.position}</p>

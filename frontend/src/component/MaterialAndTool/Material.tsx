@@ -20,7 +20,7 @@ const Material = () => {
 
         </div>
         {materials && <MaterialList materials={materials}/>}
-
+        
         <button onClick={() => navigate(-1)}>go back</button>
     </>
   )
