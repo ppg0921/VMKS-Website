@@ -1,6 +1,11 @@
 const typeDefs = `#graphql
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
 
+  input AnnouncementInput {
+    title: String!
+    content: String!
+  }
+
   type Announcement {
     id: Int!
     title: String!
@@ -45,7 +50,7 @@ const typeDefs = `#graphql
   }
 
   type Mutation {
-    AddAnnouncement(title: String!, content: String!): Announcement
+    AddAnnouncement(announcementInput: AnnouncementInput!): Announcement
   }
 `;
 
