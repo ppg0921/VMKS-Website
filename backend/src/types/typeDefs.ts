@@ -69,6 +69,21 @@ const typeDefs = `#graphql
     remain: Boolean!
   }
 
+  type Material {
+    id: Int!
+    name: String!
+    partName: String
+    category: String!
+    valuable: Boolean!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+    fee: Int!
+    remain: Int!
+  }
+
   type Tool {
     id: Int!
     name: String!
@@ -136,6 +151,7 @@ const typeDefs = `#graphql
   type Query {
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
+    AllMaterials: [Material]
     AllTools: [Tool]
     AllMachines: [Machine]
     DateNow: DateTime

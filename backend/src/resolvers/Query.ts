@@ -16,9 +16,13 @@ const Query = {
     // console.log(materials);
     return materials;
   },
-  AllMachines: async () => {
+  AllMachines: async (_parents, args, context) => {
     const machines = await prisma.machine.findMany();
     return machines;
+  },
+  AllMaterials: async(_parents, args, context) => {
+    const materials = await prisma.material.findMany();
+    return materials;
   },
   AllUser: async () => {
     const users = await prisma.user.findMany();
