@@ -1,5 +1,5 @@
 import { prisma } from "../../prisma/client.ts";
-import { AnnouncementInput } from "../types/types.ts";
+import { AnnouncementInput, ToolInput } from "../types/types.ts";
 
 const Mutation = {
     AddAnnouncement: async(_parents, args: {announcementInput: AnnouncementInput}, context) => {
@@ -14,6 +14,24 @@ const Mutation = {
         });
         // console.log(newAnnouncement);
         return newAnnouncement;
+    },
+    AddTool: async(_parents, args: {toolInput: ToolInput}, context) => {
+        const { name, partName, category, position, description, photoLink, usage, tutorialLink, remain} = args.toolInput;
+        const newTool = await prisma.tool.create({
+            data:{
+                name: name,
+                partName: partName,
+                category: category,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                remain: remain
+            }
+        });
+        // console.log(newTool);
+        return newTool;
     }
 }
 
