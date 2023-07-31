@@ -48,6 +48,17 @@ const typeDefs = `#graphql
     remain: Int!
   }
 
+  input MachineInput {
+    name: String!
+    partName: String
+    category: String!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+  }
+
   type Announcement {
     id: Int!
     title: String!
@@ -178,6 +189,7 @@ const typeDefs = `#graphql
     AddAnnouncement(announcementInput: AnnouncementInput!): Announcement
     AddTool(toolInput: ToolInput!): Tool
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
+    AddMachine(machineInput: MachineInput!): Machine
   }
 `;
 
