@@ -1,4 +1,5 @@
 import { prisma } from '../../prisma/client.ts'
+import { DateTime } from '../types/typeDefs.ts'
 
 const Query = {
   AllAnnouncements: async (_parents, args, context) => {
@@ -18,7 +19,20 @@ const Query = {
   AllMachines: async () => {
     const machines = await prisma.machine.findMany();
     return machines;
+  },
+  AllUser: async () => {
+    const users = await prisma.user.findMany();
+    return users;
+  },
+  AllUserMaterials: async () => {
+    const UserMaterials = await prisma.userMaterial.findMany();
+    return UserMaterials;
+  },
+  AllThreeDP: async () => {
+    const threeDP = await prisma.threeDP.findMany();
+    return threeDP;
   }
+
 }
 
 export { Query }
