@@ -55,6 +55,19 @@ const typeDefs = `#graphql
     content: String!
   }
 
+  input DisposableMaterialInput {  
+    name: String!
+    partName: String
+    category: String!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+    fee: Int
+    remain: Boolean!
+  }
+
   type DisposableMaterial {
     id: Int!     
     name: String!
@@ -164,6 +177,7 @@ const typeDefs = `#graphql
   type Mutation {
     AddAnnouncement(announcementInput: AnnouncementInput!): Announcement
     AddTool(toolInput: ToolInput!): Tool
+    AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
   }
 `;
 
