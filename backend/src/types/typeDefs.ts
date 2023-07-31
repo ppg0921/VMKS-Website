@@ -188,10 +188,7 @@ const typeDefs = `#graphql
   type Mutation {
     AddAnnouncement(announcementInput: AnnouncementInput!): Announcement
     AddTool(toolInput: ToolInput!): Tool
-<<<<<<< HEAD
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
-=======
->>>>>>> EDITOR-#43 fix machine mutation bug
     AddMachine(machineInput: MachineInput!): Machine
   }
 `;
