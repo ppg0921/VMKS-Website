@@ -28,6 +28,20 @@ interface DisposableMaterialInput {
     remain: boolean
 }
 
+interface MaterialInput {
+    name: string,
+    partName: string|null,
+    category: string,
+    valuable: boolean,
+    position: string,
+    description: string,
+    photoLink: string,
+    usage: number,
+    tutorialLink: string,
+    fee: number,
+    remain: number
+}
+
 interface MachineInput {
     name: string,
     partName: string,
@@ -39,4 +53,4 @@ interface MachineInput {
     tutorialLink: string
 }
 
-export { AnnouncementInput, ToolInput, DisposableMaterialInput, MachineInput }
+export { AnnouncementInput, ToolInput, DisposableMaterialInput, MachineInput, MaterialInput }

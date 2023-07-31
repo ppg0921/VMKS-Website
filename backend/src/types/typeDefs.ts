@@ -59,6 +59,20 @@ const typeDefs = `#graphql
     tutorialLink: String!
   }
 
+  input MaterialInput {  
+    name: String!
+    partName: String
+    category: String!
+    valuable: Boolean!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+    fee: Int!
+    remain: Int!
+  }
+
   type Announcement {
     id: Int!
     title: String!
@@ -190,6 +204,7 @@ const typeDefs = `#graphql
     AddTool(toolInput: ToolInput!): Tool
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
+    AddMaterial(materialInput: MaterialInput!): Material
   }
 `;
 
