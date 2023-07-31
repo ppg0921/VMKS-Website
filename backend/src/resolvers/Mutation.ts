@@ -65,6 +65,7 @@ const Mutation = {
                 tutorialLink: tutorialLink
             }
         });
+        // console.log(newMachine);
         return newMachine;
     }
 }
