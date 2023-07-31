@@ -59,6 +59,7 @@ const typeDefs = `#graphql
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
     AllTools: [Tool]
+    AllMachines: [Machine]
   }
 
   type Mutation {
