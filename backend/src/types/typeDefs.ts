@@ -6,6 +6,18 @@ const typeDefs = `#graphql
     content: String!
   }
 
+  input ToolInput {
+    name: String!
+    partName: String
+    category: String!
+    position: String!
+    description: String!
+    photoLink: String!
+    usage: Int!
+    tutorialLink: String!
+    remain: Int!
+  }
+
   type Announcement {
     id: Int!
     title: String!
@@ -51,6 +63,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     AddAnnouncement(announcementInput: AnnouncementInput!): Announcement
+    AddTool(toolInput: ToolInput!): Tool
   }
 `;
 
