@@ -79,6 +79,7 @@ const typeDefs = `#graphql
     fee: Int!
     remain: Int!
   }
+  
   input ThreeDPInput{
     name:         String!
     category:     String!
@@ -90,8 +91,10 @@ const typeDefs = `#graphql
   }
 
   input UserMaterialInput{
+    id:         Int!
     name:       String!
     partName:   String
+    borrower:   User!
     borrowerId: Int!
     borrowNum:  Int!
     borrowDate: String!
