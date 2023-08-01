@@ -1,5 +1,4 @@
 import { prisma } from '../../prisma/client.ts'
-import { DateTime } from '../types/typeDefs.ts'
 
 const Query = {
   AllAnnouncements: async (_parents, args, context) => {
@@ -36,7 +35,6 @@ const Query = {
     const threeDP = await prisma.threeDP.findMany();
     return threeDP;
   }
-
 }
 
 export { Query }

@@ -28,6 +28,8 @@ const DateTime = new GraphQLScalarType({
 
 const typeDefs = `#graphql
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+
+  ### Define Data Structure ###
   
   scalar DateTime
 
@@ -76,7 +78,7 @@ const typeDefs = `#graphql
   type Announcement {
     id: Int!
     title: String!
-    date: String!
+    date: DateTime!
     content: String!
   }
 
@@ -183,24 +185,24 @@ const typeDefs = `#graphql
     borrowHistory: UserMaterial!
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
+
+  ### Define Resolvers ###
+
   type Query {
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
     AllMaterials: [Material]
     AllTools: [Tool]
     AllMachines: [Machine]
-    DateNow: DateTime
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
-
   }
 
   type Mutation {
     AddAnnouncement(announcementInput: AnnouncementInput!): Announcement
+    DeleteAnnouncement(id: Int!): Announcement
+    EditAnnouncement(id: Int!, announcementInput: AnnouncementInput!): Announcement
     AddTool(toolInput: ToolInput!): Tool
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
