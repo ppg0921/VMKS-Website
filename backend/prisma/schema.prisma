@@ -11,9 +11,9 @@ datasource db {
 }
 
 model Announcement {
-  id      Int    @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   title   String
-  date    String
+  date    DateTime
   content String
 }
 
