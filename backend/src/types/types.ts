@@ -67,8 +67,6 @@ interface UserMaterialInput{
     partName: string,
     borrowerId: number,
     borrowNum: number,
-    borrowDate: string,
-    returnDate: string,
     status: string
 }
 
