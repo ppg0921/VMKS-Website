@@ -350,8 +350,9 @@ const Mutation = {
               borrowerId: id
           }
         });
-  
-        if (findNotReturnedMaterials){
+        if (!findUser){
+            throw new Error(`User with id: ${id} not found`)
+        } else if (findNotReturnedMaterials){
           throw new Error("There are materials yet to be returned by this user");
         }
     //   const deleteLentMaterials = await prisma.userMaterial.deleteMany({
