@@ -210,7 +210,7 @@ const Mutation = {
         return newMaterial;
     },
     AddThreeDP: async(_parents, args: {threeDPInput: ThreeDPInput}, context) => {
-        const { name, category, position, description, photoLink, usage, tutorialLink, /*waiting*/} = args.threeDPInput;
+        const { name, category, position, description, photoLink, usage, tutorialLink } = args.threeDPInput;
         const newThreeDP = await prisma.threeDP.create({
             data: {
                 name: name,
@@ -220,14 +220,7 @@ const Mutation = {
                 photoLink: photoLink,
                 usage: usage,
                 tutorialLink: tutorialLink,
-                // waiting: {
-                //     create: [{
-                //         name: waiting.name,
-                //         studentID: waiting.studentID,
-                //         password: waiting.password,
-                //         photoLink: waiting.photoLink
-                //     }]
-                // }
+                waiting: {}
             }
         });
         return newThreeDP;
@@ -249,7 +242,7 @@ const Mutation = {
         return newUserMaterial;
     },
     AddUser: async(_parents, args: {userInput: UserInput}, context) => {
-        const {name, studentID, password, photoLink, threeDPId, laserCutAvailable, /*borrowHistory*/} = args.userInput;
+        const {name, studentID, password, photoLink, threeDPId, laserCutAvailable } = args.userInput;
         const newUsers = await prisma.user.create({
             data:{
                 name: name,
@@ -258,6 +251,7 @@ const Mutation = {
                 photoLink: photoLink,
                 threeDPId: threeDPId,
                 laserCutAvailable: laserCutAvailable,
+                borrowHistory: {}
             }
         });
         // console.log(newUsers);
