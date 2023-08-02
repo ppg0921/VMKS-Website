@@ -1,4 +1,5 @@
 import { prisma } from '../../prisma/client.ts'
+import { ToolInput } from '../types/types.ts';
 
 const Query = {
   AllAnnouncements: async (_parents, args, context) => {
@@ -9,6 +10,34 @@ const Query = {
   AllTools: async (_parents, args, context) => {
     const tools = await prisma.tool.findMany();
     return tools;
+  },
+  SearchToolsByCategory: async (_parents, args: { category: string }, context) => {
+    const category = args.category;
+    const searchToolsByCategory = await prisma.tool.findMany({
+      where: {
+        category: {
+          startsWith: category
+        }
+      }
+    }); 
+    if (!searchToolsByCategory) {
+      throw new Error("tools not found!");
+    }
+
+    return searchToolsByCategory;
+  },
+  SearchToolsByPosition: async (_parents, args: { position: string }, context) => {
+    const position = args.position;
+    const searchToolsByPosition = await prisma.tool.findMany({
+      where: {
+        position: position,
+      }
+    });
+    if (!searchToolsByPosition) {
+      throw new Error("tools not found!");
+    }
+
+    return searchToolsByPosition;
   },
   AllDisposableMaterials: async (_parents, args, context) => {
     const materials = await prisma.disposableMaterial.findMany();
