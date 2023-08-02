@@ -50,6 +50,11 @@ const typeDefs = `#graphql
     remain: Int!
   }
 
+  input ToolUsageUpdateInput {
+    usage: Int!
+    remain: Int!
+  }
+
   input MachineInput {
     name: String!
     partName: String
@@ -208,7 +213,7 @@ const typeDefs = `#graphql
     AddTool(toolInput: ToolInput!): Tool
     DeleteTool(id: Int!): Tool
     EditTool(id: Int!, toolInput: ToolInput!): Tool
-    ToolUsageUpdate(id: Int!, toolInput: ToolInput!): Tool # update usage & remain
+    ToolUsageUpdate(id: Int!, toolUsageUpdateInput: ToolUsageUpdateInput!): Tool # update usage & remain
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material

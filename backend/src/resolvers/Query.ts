@@ -20,7 +20,7 @@ const Query = {
         }
       }
     }); 
-    if (!searchToolsByCategory) {
+    if (searchToolsByCategory.length === 0) {
       throw new Error("tools not found!");
     }
 
@@ -33,7 +33,7 @@ const Query = {
         position: position,
       }
     });
-    if (!searchToolsByPosition) {
+    if (searchToolsByPosition.length === 0) {
       throw new Error("tools not found!");
     }
 

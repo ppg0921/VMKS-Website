@@ -1,5 +1,5 @@
 import { prisma } from "../../prisma/client.ts";
-import { AnnouncementInput, ToolInput, DisposableMaterialInput, MachineInput, MaterialInput } from "../types/types.ts";
+import { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput } from "../types/types.ts";
 
 const Mutation = {
 
@@ -126,9 +126,9 @@ const Mutation = {
         });
         return editTool;
     },
-    ToolUsageUpdate: async(_parents, args: { id: number, toolInput: ToolInput }, context) => {
+    ToolUsageUpdate: async(_parents, args: { id: number, toolUsageUpdateInput: ToolUsageUpdateInput }, context) => {
         const id = args.id;
-        const { usage, remain } = args.toolInput;
+        const { usage, remain } = args.toolUsageUpdateInput;
         const findTool = await prisma.tool.findFirst({
             where: { 
                 id: id 
