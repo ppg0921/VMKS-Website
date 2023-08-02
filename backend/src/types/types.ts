@@ -1,3 +1,6 @@
+import { User, ThreeDP, UserMaterial } from "@prisma/client"
+import { GraphQLScalarType, Kind } from 'graphql';
+
 interface AnnouncementInput {
     title: string,
     content: string
@@ -58,4 +61,34 @@ interface MachineInput {
     tutorialLink: string
 }
 
-export { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput }
+
+interface UserMaterialInput{
+    name: string,
+    partName: string,
+    borrowerId: number,
+    borrowNum: number,
+    status: string
+}
+
+interface ThreeDPInput{
+    name: string,
+    category: string,
+    position: string,
+    description: string,
+    photoLink: string,
+    usage: number,
+    tutorialLink: string,
+    // waiting: UserInput | null
+}
+
+interface UserInput {
+    name: string,
+    studentID: string,
+    password: string,
+    photoLink: string,
+    threeDPId: number,            
+    laserCutAvailable: boolean,        
+    // borrowHistory: UserMaterialInput | null
+}
+
+export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput }

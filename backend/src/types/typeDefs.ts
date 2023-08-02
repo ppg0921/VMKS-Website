@@ -8,13 +8,13 @@ const DateTime = new GraphQLScalarType({
     if (value instanceof Date) {
       return value.getTime(); // Convert outgoing Date to integer for JSON
     }
-    throw Error('GraphQL Date Scalar serializer expected a `Date` object');
+    throw Error('GraphQL Date Scalar serializer expected a Date object');
   },
   async parseValue(value) {
     if (typeof value === 'number') {
       return new Date(value); // Convert incoming integer to Date
     }
-    throw new Error('GraphQL Date Scalar parser expected a `number`');
+    throw new Error('GraphQL Date Scalar parser expected a number');
   },
   async parseLiteral(ast) {
     if (ast.kind === Kind.INT) {
@@ -78,6 +78,36 @@ const typeDefs = `#graphql
     tutorialLink: String!
     fee: Int!
     remain: Int!
+  }
+  input ThreeDPInput{
+    name:         String!
+    category:     String!
+    position:     String!
+    description:  String!
+    photoLink:    String!
+    usage:        Int!
+    tutorialLink: String!
+    waiting:      UserInput
+  }
+
+  input UserMaterialInput{
+    name:       String!
+    partName:   String
+    borrowerId: Int!
+    borrowNum:  Int!
+    borrowDate: String!
+    returnDate: String
+    status:     String!
+  }
+
+  input UserInput {
+    name: String!
+    studentID: String!
+    password: String!
+    photoLink: String!   
+    threeDPId: Int!            
+    laserCutAvailable: Boolean!        
+    borrowHistory: UserMaterialInput
   }
 
   type Announcement {
@@ -173,8 +203,8 @@ const typeDefs = `#graphql
     borrower:   User!
     borrowerId: Int!
     borrowNum:  Int!
-    borrowDate: DateTime!
-    returnDate: DateTime
+    borrowDate: String!
+    returnDate: String
     status:     String!
   }
 
@@ -217,6 +247,9 @@ const typeDefs = `#graphql
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material
+    AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
+    AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP
+    AddUser(userInput: UserInput!) : User
   }
 `;
 
