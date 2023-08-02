@@ -210,7 +210,7 @@ const Mutation = {
         return newMaterial;
     },
     AddThreeDP: async(_parents, args: {threeDPInput: ThreeDPInput}, context) => {
-        const { name, category, position, description, photoLink, usage, tutorialLink, /*waiting*/} = args.threeDPInput;
+        const { name, category, position, description, photoLink, usage, tutorialLink } = args.threeDPInput;
         const newThreeDP = await prisma.threeDP.create({
             data: {
                 name: name,
@@ -220,20 +220,24 @@ const Mutation = {
                 photoLink: photoLink,
                 usage: usage,
                 tutorialLink: tutorialLink,
-                // waiting: {
-                //     create: [{
-                //         name: waiting.name,
-                //         studentID: waiting.studentID,
-                //         password: waiting.password,
-                //         photoLink: waiting.photoLink
-                //     }]
-                // }
+                waiting: {}
             }
         });
         return newThreeDP;
     },
     AddUserMaterial: async(_parents, args: {userMaterialInput: UserMaterialInput}, context) => {
         const { name, partName, borrowerId, borrowNum, status} = args.userMaterialInput;
+
+        const findBorrower = await prisma.threeDP.findFirst({
+            where: {
+                id: borrowerId
+            }
+        })
+
+        if (!findBorrower){
+            throw new Error("Borrower ID not found!");
+        } 
+
         const borrowDate = new Date().toUTCString();
         const newUserMaterial = await prisma.userMaterial.create({
             data: {
@@ -246,10 +250,32 @@ const Mutation = {
                 status: status
             }
         });
+
+        const updateBorrowHistory = await prisma.user.update({
+            where: {
+                id: borrowerId
+            },
+            data:{
+                borrowHistoryId: { push: newUserMaterial.id } 
+            }
+        });
+
         return newUserMaterial;
     },
     AddUser: async(_parents, args: {userInput: UserInput}, context) => {
-        const {name, studentID, password, photoLink, threeDPId, laserCutAvailable, /*borrowHistory*/} = args.userInput;
+        const {name, studentID, password, photoLink, threeDPId, laserCutAvailable } = args.userInput;
+        if (threeDPId){
+            const findThreeDP = await prisma.threeDP.findFirst({
+                where: {
+                    id: threeDPId
+                }
+            })
+
+            if (!findThreeDP){
+                throw new Error("threeDP ID not found!");
+            } 
+        }
+
         const newUsers = await prisma.user.create({
             data:{
                 name: name,
@@ -258,9 +284,22 @@ const Mutation = {
                 photoLink: photoLink,
                 threeDPId: threeDPId,
                 laserCutAvailable: laserCutAvailable,
+                borrowHistory: {}
             }
         });
         // console.log(newUsers);
+
+        if (threeDPId){
+            const updateWaiting = await prisma.threeDP.update({
+                where: {
+                    id: threeDPId
+                },
+                data:{
+                    waitingId: { push: newUsers.id } 
+                }
+            });
+        }
+
         return newUsers;
     }
 }

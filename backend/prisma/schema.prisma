@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Announcement {
-  id      Int      @id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
   title   String
   date    String
   content String
@@ -78,6 +78,7 @@ model ThreeDP {
   usage        Int
   tutorialLink String
   waiting      User[]
+  waitingId    Int[]
 }
 
 model User {
@@ -87,16 +88,17 @@ model User {
   password          String
   photoLink         String
   threeDPUse        ThreeDP?       @relation(fields: [threeDPId], references: [id])
-  threeDPId         Int            @default(0)
+  threeDPId         Int?
   laserCutAvailable Boolean        @default(false)
   borrowHistory     UserMaterial[]
+  borrowHistoryId   Int[]
 }
 
 model UserMaterial {
-  id         Int       @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   name       String
   partName   String?
-  borrower   User      @relation(fields: [borrowerId], references: [id])
+  borrower   User    @relation(fields: [borrowerId], references: [id])
   borrowerId Int
   borrowNum  Int
   borrowDate String
