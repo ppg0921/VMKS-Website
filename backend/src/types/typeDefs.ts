@@ -233,6 +233,7 @@ const typeDefs = `#graphql
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
+    FindThreeDPByCategory(category: String!): [ThreeDP]
   }
 
   type Mutation {
