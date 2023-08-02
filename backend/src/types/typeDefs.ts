@@ -248,6 +248,7 @@ const typeDefs = `#graphql
     AddMaterial(materialInput: MaterialInput!): Material
     AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP
+    DeleteThreeDP(id: Int!): ThreeDP
     AddUser(userInput: UserInput!) : User
   }
 `;

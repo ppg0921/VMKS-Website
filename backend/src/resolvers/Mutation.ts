@@ -1,3 +1,4 @@
+import { Decimal } from "@prisma/client/runtime/library";
 import { prisma } from "../../prisma/client.ts";
 import { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput, UserMaterialInput, ThreeDPInput, UserInput } from "../types/types.ts";
 
@@ -224,6 +225,40 @@ const Mutation = {
             }
         });
         return newThreeDP;
+    },
+
+    DeleteThreeDP: async(_parents, args: {id: number}, context) => {
+      const id = args.id;
+      const findThreeDP = await prisma.threeDP.findFirst({
+        where: {
+            id: id
+        }
+      });
+
+      const findAffiliatedUser = await prisma.user.findFirst({
+        where: {
+            threeDPId: id
+        }
+      });
+
+      if (!findThreeDP){
+        throw new Error("ThreeDP Not Found");
+      }
+    const deleteAffiliatedUser = await prisma.user.updateMany({
+        where: {
+            threeDPId: id
+        },
+        data: {
+            threeDPId: null  // redirect the waiting users to other 3DP
+        }
+    });
+    const DeleteThreeDP = await prisma.threeDP.delete({
+        where: {
+            id: id
+        }
+    });
+    return DeleteThreeDP
+
     },
     AddUserMaterial: async(_parents, args: {userMaterialInput: UserMaterialInput}, context) => {
         const { name, partName, borrowerId, borrowNum, status} = args.userMaterialInput;
