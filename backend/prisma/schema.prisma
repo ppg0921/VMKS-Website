@@ -78,6 +78,7 @@ model ThreeDP {
   usage        Int
   tutorialLink String
   waiting      User[]
+  waitingId    Int[]
 }
 
 model User {
@@ -90,6 +91,7 @@ model User {
   threeDPId         Int?
   laserCutAvailable Boolean        @default(false)
   borrowHistory     UserMaterial[]
+  borrowHistoryId   Int[]
 }
 
 model UserMaterial {
