@@ -50,6 +50,11 @@ const typeDefs = `#graphql
     remain: Int!
   }
 
+  input ToolUsageUpdateInput {
+    usage: Int!
+    remain: Int!
+  }
+
   input MachineInput {
     name: String!
     partName: String
@@ -193,6 +198,8 @@ const typeDefs = `#graphql
     AllDisposableMaterials: [DisposableMaterial]
     AllMaterials: [Material]
     AllTools: [Tool]
+    SearchToolsByCategory(category: String!): [Tool]
+    SearchToolsByPosition(position: String!): [Tool]
     AllMachines: [Machine]
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
@@ -204,6 +211,9 @@ const typeDefs = `#graphql
     DeleteAnnouncement(id: Int!): Announcement
     EditAnnouncement(id: Int!, announcementInput: AnnouncementInput!): Announcement
     AddTool(toolInput: ToolInput!): Tool
+    DeleteTool(id: Int!): Tool
+    EditTool(id: Int!, toolInput: ToolInput!): Tool
+    ToolUsageUpdate(id: Int!, toolUsageUpdateInput: ToolUsageUpdateInput!): Tool # update usage & remain
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material

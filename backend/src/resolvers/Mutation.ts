@@ -1,12 +1,12 @@
 import { prisma } from "../../prisma/client.ts";
-import { AnnouncementInput, ToolInput, DisposableMaterialInput, MachineInput, MaterialInput } from "../types/types.ts";
+import { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput } from "../types/types.ts";
 
 const Mutation = {
 
     // Announcement Mutation 
     AddAnnouncement: async (_parents, args: { announcementInput: AnnouncementInput }, context) => {
         const { title, content } = args.announcementInput;
-        const date = new Date();
+        const date = new Date().toUTCString();
         const newAnnouncement = await prisma.announcement.create({
             data: {
                 title: title,
@@ -77,6 +77,77 @@ const Mutation = {
         });
         // console.log(newTool);
         return newTool;
+    },
+    DeleteTool: async(_parents, args: { id: number }, context) => {
+        const id = args.id;
+        const findTool = await prisma.tool.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findTool) { 
+            throw new Error("tool not found!");
+        }
+
+        const deleteTool = await prisma.tool.delete({
+            where: {
+                id: id
+            }
+        });
+        return deleteTool;
+    },
+    EditTool: async(_parents, args: { id: number, toolInput: ToolInput }, context) => {
+        const id = args.id;
+        const { name, partName, category, position, description, photoLink, usage, tutorialLink, remain } = args.toolInput;
+        const findTool = await prisma.tool.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findTool) { 
+            throw new Error("tool not found!");
+        }
+
+        const editTool = await prisma.tool.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                category: category,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                remain: remain
+            }
+        });
+        return editTool;
+    },
+    ToolUsageUpdate: async(_parents, args: { id: number, toolUsageUpdateInput: ToolUsageUpdateInput }, context) => {
+        const id = args.id;
+        const { usage, remain } = args.toolUsageUpdateInput;
+        const findTool = await prisma.tool.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findTool) { 
+            throw new Error("tool not found!");
+        }
+
+        const toolUsageUpdate = await prisma.tool.update({
+            where: {
+                id: id
+            },
+            data: {
+                usage: usage,
+                remain: remain
+            }
+        });
+        return toolUsageUpdate;
     },
 
     // DisposableMaterial Mutation

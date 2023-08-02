@@ -15,6 +15,11 @@ interface ToolInput {
     remain: number
 }
 
+interface ToolUsageUpdateInput {
+    usage: number,
+    remain: number
+}
+
 interface DisposableMaterialInput {
     name: string,
     partName: string | null,
@@ -53,4 +58,4 @@ interface MachineInput {
     tutorialLink: string
 }
 
-export { AnnouncementInput, ToolInput, DisposableMaterialInput, MachineInput, MaterialInput }
+export { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput }
