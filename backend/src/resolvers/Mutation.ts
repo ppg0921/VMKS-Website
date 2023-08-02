@@ -336,7 +336,37 @@ const Mutation = {
         }
 
         return newUsers;
-    }
+    },
+    DeleteUser: async(_parents, args: {id: number}, context) => {
+        const id = args.id;
+        const findUser = await prisma.user.findFirst({
+          where: {
+              id: id
+          }
+        });
+  
+        const findNotReturnedMaterials= await prisma.userMaterial.findFirst({
+          where: {
+              borrowerId: id
+          }
+        });
+  
+        if (findNotReturnedMaterials){
+          throw new Error("There are materials yet to be returned by this user");
+        }
+    //   const deleteLentMaterials = await prisma.userMaterial.deleteMany({
+    //       where: {
+    //           borrowerId: id
+    //       }
+    //   });
+      const DeleteUser = await prisma.user.delete({
+          where: {
+              id: id
+          }
+      });
+      return DeleteUser
+  
+      },
 }
 
 export { Mutation }

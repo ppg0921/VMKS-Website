@@ -250,6 +250,7 @@ const typeDefs = `#graphql
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP
     DeleteThreeDP(id: Int!): ThreeDP
     AddUser(userInput: UserInput!) : User
+    DeleteUser(id: Int!): User
   }
 `;
 
