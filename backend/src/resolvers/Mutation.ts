@@ -297,6 +297,23 @@ const Mutation = {
 
         return newUserMaterial;
     },
+    DeleteUserMaterial: async(_parents, args: {id: number}, context) => {
+        const id = args.id;
+        const findUserMaterial = await prisma.userMaterial.findFirst({
+            where: {
+                id: id
+            }
+        });
+        if (!findUserMaterial) {
+            return new Error("User Material Not Found");
+        }
+        const DeleteUserMaterial = await prisma.userMaterial.delete({
+            where: {
+                id: id
+            }
+        });
+        return DeleteUserMaterial;
+    },
     AddUser: async(_parents, args: {userInput: UserInput}, context) => {
         const {name, studentID, password, photoLink, threeDPId, laserCutAvailable } = args.userInput;
         if (threeDPId){
@@ -351,7 +368,7 @@ const Mutation = {
           }
         });
         if (!findUser){
-            throw new Error(`User with id: ${id} not found`)
+            throw new Error(`User With id: ${id} Not Found`)
         } else if (findNotReturnedMaterials){
           throw new Error("There are materials yet to be returned by this user");
         }
