@@ -88,6 +88,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
+    waitingId:    [Int]
   }
 
   input UserMaterialInput{
@@ -107,6 +108,7 @@ const typeDefs = `#graphql
     photoLink: String!   
     threeDPId: Int           
     laserCutAvailable: Boolean        
+    borrowHistoryId: [Int]
   }
 
   type Announcement {
@@ -192,7 +194,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
-    waiting: User!
+    waitingId:    [Int]
   }
 
   type UserMaterial {
@@ -216,7 +218,7 @@ const typeDefs = `#graphql
     threeDPUse: ThreeDP
     threeDPId: Int
     laserCutAvailable: Boolean!
-    borrowHistory: UserMaterial!
+    borrowHistoryId: [Int]
   }
 
 
