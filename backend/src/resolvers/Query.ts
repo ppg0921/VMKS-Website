@@ -70,14 +70,10 @@ const Query = {
     console.log(category);
     const FindThreeDPByCategory = await prisma.threeDP.findMany({
       where: {
-        AND:{
-          id: { not: -345 },
           category: {
             startsWith: category
           },          
-        },
       },
-
     });   
     return FindThreeDPByCategory;
   },

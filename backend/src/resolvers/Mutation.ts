@@ -235,7 +235,7 @@ const Mutation = {
         }
       });
 
-      const findAffiliatedUser = await prisma.user.findFirst({
+      const findAffiliatedUser = await prisma.user.findMany({   // checks if any user is linked to this threeDP instead of checking if the waiting line is empty is to minimize and simplify input variables
         where: {
             threeDPId: id
         }
@@ -244,19 +244,17 @@ const Mutation = {
       if (!findThreeDP){
         throw new Error("ThreeDP Not Found");
       }
-    const deleteAffiliatedUser = await prisma.user.updateMany({
-        where: {
-            threeDPId: id
-        },
-        data: {
-            threeDPId: null  // redirect the waiting users to other 3DP
-        }
-    });
+      if (findAffiliatedUser[0] !== undefined) {
+        throw new Error("There are still people waiting in line");
+      }
+      // When editing User's threeDPId, backend must also manipulate the waiting line of the corresponding threeDP (removing/adding user from/to the line)
+
     const DeleteThreeDP = await prisma.threeDP.delete({
         where: {
             id: id
         }
     });
+
     return DeleteThreeDP
 
     },
@@ -305,14 +303,17 @@ const Mutation = {
             }
         });
         if (!findUserMaterial) {
-            return new Error("User Material Not Found");
-        }
-        const DeleteUserMaterial = await prisma.userMaterial.delete({
-            where: {
-                id: id
-            }
-        });
-        return DeleteUserMaterial;
+            throw new Error("User Material Not Found");
+        } else if (findUserMaterial.borrowerId !== null) {
+            throw new Error("This Material Is Lent") 
+        } else {
+            const DeleteUserMaterial = await prisma.userMaterial.delete({
+                where: {
+                    id: id
+                }
+            });
+            return DeleteUserMaterial;
+        }   // Edit userMaterial has to set the borrowerId of the specified material and remove it from materials then add it to userMaterials or vice versa.
     },
     AddUser: async(_parents, args: {userInput: UserInput}, context) => {
         const {name, studentID, password, photoLink, threeDPId, laserCutAvailable } = args.userInput;
@@ -362,21 +363,21 @@ const Mutation = {
           }
         });
   
-        const findNotReturnedMaterials= await prisma.userMaterial.findFirst({
+        const findNotReturnedMaterials= await prisma.userMaterial.findMany({ // checks if any userMaterial is linked to this user instead of checking if the borrowHistory is empty is to minimize and simplify input variables
           where: {
               borrowerId: id
           }
         });
         if (!findUser){
-            throw new Error(`User With id: ${id} Not Found`)
-        } else if (findNotReturnedMaterials){
+          throw new Error(`User With id: ${id} Not Found`)
+        } else if (findNotReturnedMaterials[0] !== undefined){
           throw new Error("There are materials yet to be returned by this user");
         }
-    //   const deleteLentMaterials = await prisma.userMaterial.deleteMany({
+    /*   const deleteLentMaterials = await prisma.userMaterial.deleteMany({
     //       where: {
     //           borrowerId: id
     //       }
-    //   });
+       }); */   // Code for force deletion of materials borrowed by this user
       const DeleteUser = await prisma.user.delete({
           where: {
               id: id

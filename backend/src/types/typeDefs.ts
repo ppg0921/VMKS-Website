@@ -217,7 +217,7 @@ const typeDefs = `#graphql
     photoLink: String!
     threeDPUse: ThreeDP
     threeDPId: Int
-    laserCutAvailable: Boolean!
+    laserCutAvailable: Boolean
     borrowHistoryId: [Int]
   }
 
