@@ -19,7 +19,7 @@ const Material = () => {
             所有詳細資料、照片、buy and scrap button
 
         </div>
-        {materials && <MaterialList materials={materials}/>}
+        {/* {materials && <MaterialList materials={materials}/>} */}
         
         <button onClick={() => navigate(-1)}>go back</button>
     </>

@@ -26,7 +26,7 @@ const useFetchMaterial = (url:string) => {
         })
       }, [url])
 
-  
+      console.log("success fetch");
     return { data, isPending };
   }
  

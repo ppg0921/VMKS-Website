@@ -2,7 +2,9 @@ export type MaterialType = {
     id:number,
     name:string,
     position:string,
-    intro:string,
+    description:string,
     remaining?:number,
-    tutorial?:string
+    tutorialLink?:string,
+    photoLink?:string,
+    category?:string
 }
