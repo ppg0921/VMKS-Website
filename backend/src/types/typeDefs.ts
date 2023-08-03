@@ -79,6 +79,7 @@ const typeDefs = `#graphql
     fee: Int!
     remain: Int!
   }
+  
   input ThreeDPInput{
     name:         String!
     category:     String!
@@ -87,6 +88,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
+    waitingId:    [Int]
   }
 
   input UserMaterialInput{
@@ -105,8 +107,8 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!   
     threeDPId: Int           
-    laserCutAvailable: Boolean!        
-    borrowHistory: [UserMaterialInput]
+    laserCutAvailable: Boolean        
+    borrowHistoryId: [Int]
   }
 
   type Announcement {
@@ -192,7 +194,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
-    waiting:      [User]
+    waitingId:    [Int]
   }
 
   type UserMaterial {
@@ -215,8 +217,8 @@ const typeDefs = `#graphql
     photoLink: String!
     threeDPUse: ThreeDP
     threeDPId: Int
-    laserCutAvailable: Boolean!
-    borrowHistory: [UserMaterial]
+    laserCutAvailable: Boolean
+    borrowHistoryId: [Int]
   }
 
 
@@ -233,6 +235,7 @@ const typeDefs = `#graphql
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
+    FindThreeDPByCategory(category: String!): [ThreeDP]
   }
 
   type Mutation {
@@ -247,8 +250,11 @@ const typeDefs = `#graphql
     AddMachine(machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material
     AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
+    DeleteUserMaterial(id: Int!): UserMaterial
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP
+    DeleteThreeDP(id: Int!): ThreeDP
     AddUser(userInput: UserInput!) : User
+    DeleteUser(id: Int!): User
   }
 `;
 

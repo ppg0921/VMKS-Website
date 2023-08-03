@@ -78,7 +78,7 @@ interface ThreeDPInput{
     photoLink: string,
     usage: number,
     tutorialLink: string,
-    // waiting: UserInput | null
+    waitingId: number
 }
 
 interface UserInput {
@@ -87,8 +87,8 @@ interface UserInput {
     password: string,
     photoLink: string,
     threeDPId: number,            
-    laserCutAvailable: boolean,        
-    // borrowHistory: UserMaterialInput | null
+    laserCutAvailable: boolean,
+    borrowHistoryId: number,       
 }
 
 export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput }

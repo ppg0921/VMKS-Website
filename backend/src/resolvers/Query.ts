@@ -1,3 +1,4 @@
+import { findAncestor } from 'typescript';
 import { prisma } from '../../prisma/client.ts'
 import { ToolInput } from '../types/types.ts';
 
@@ -63,7 +64,19 @@ const Query = {
   AllThreeDP: async () => {
     const threeDP = await prisma.threeDP.findMany();
     return threeDP;
-  }
+  },
+  FindThreeDPByCategory: async(_parents, args: {category: string}, context) => {
+    const category = args.category;
+    console.log(category);
+    const FindThreeDPByCategory = await prisma.threeDP.findMany({
+      where: {
+          category: {
+            startsWith: category
+          },          
+      },
+    });   
+    return FindThreeDPByCategory;
+  },
 }
 
 export { Query }

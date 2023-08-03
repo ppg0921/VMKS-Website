@@ -89,7 +89,7 @@ model User {
   photoLink         String
   threeDPUse        ThreeDP?       @relation(fields: [threeDPId], references: [id])
   threeDPId         Int?
-  laserCutAvailable Boolean        @default(false)
+  laserCutAvailable Boolean?        @default(false)
   borrowHistory     UserMaterial[]
   borrowHistoryId   Int[]
 }
