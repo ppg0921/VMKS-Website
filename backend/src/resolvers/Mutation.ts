@@ -220,8 +220,7 @@ const Mutation = {
                 description: description,
                 photoLink: photoLink,
                 usage: usage,
-                tutorialLink: tutorialLink,
-                waiting: {}
+                tutorialLink: tutorialLink
             }
         });
         return newThreeDP;
@@ -261,7 +260,7 @@ const Mutation = {
     AddUserMaterial: async(_parents, args: {userMaterialInput: UserMaterialInput}, context) => {
         const { name, partName, borrowerId, borrowNum, status} = args.userMaterialInput;
 
-        const findBorrower = await prisma.threeDP.findFirst({
+        const findBorrower = await prisma.user.findFirst({
             where: {
                 id: borrowerId
             }
