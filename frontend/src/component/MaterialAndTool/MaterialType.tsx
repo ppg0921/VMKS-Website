@@ -3,8 +3,8 @@ export type MaterialType = {
     name:string,
     position:string,
     description:string,
-    remaining?:number,
+    remain?:number,
     tutorialLink?:string,
     photoLink?:string,
-    category?:string
+    category?:string,
 }

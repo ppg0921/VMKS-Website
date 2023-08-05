@@ -27,7 +27,7 @@ export const RouteBar = (props:RouteBarProps) => {
       <Link to='/'>Home</Link>
       {routes.map(route=>{
         return(
-          <span>{">  "} <Link to={route}>{route}</Link></span>)
+          <span>{">  "} <Link to={'/'+route}>{route}</Link></span>)
       })}
     </nav>
   ) 
