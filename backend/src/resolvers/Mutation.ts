@@ -1,6 +1,6 @@
 import { Decimal } from "@prisma/client/runtime/library";
 import { prisma } from "../../prisma/client.ts";
-import { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput, UserMaterialInput, ThreeDPInput, UserInput } from "../types/types.ts";
+import { AnnouncementInput, ToolInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput, UserMaterialInput, ThreeDPInput, UserInput } from "../types/types.ts";
 
 const Mutation = {
 
@@ -210,6 +210,80 @@ const Mutation = {
         });
         return newMaterial;
     },
+    DeleteMaterial: async(_parents, args: { id: number }, context) => {
+        const id = args.id;
+        const findMaterial = await prisma.material.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findMaterial) { 
+            throw new Error("material not found!");
+        }
+
+        const deleteMaterial = await prisma.material.delete({
+            where: {
+                id: id
+            }
+        });
+        return deleteMaterial;
+    },
+    EditMaterial: async(_parents, args: { id: number, materialInput: MaterialInput }, context) => {
+        const id = args.id;
+        const { name, partName, category, valuable, position, description, photoLink, usage, tutorialLink, fee, remain } = args.materialInput;
+        const findMaterial = await prisma.material.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findMaterial) { 
+            throw new Error("material not found!");
+        }
+
+        const editMaterial = await prisma.material.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                category: category,
+                valuable: valuable,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                fee: fee,
+                remain: remain
+            }
+        });
+        return editMaterial;
+    },
+    MaterialUsageUpdate: async(_parents, args: { id: number, materialUsageUpdateInput: MaterialUsageUpdateInput }, context) => {
+        const id = args.id;
+        const { usage, remain } = args.materialUsageUpdateInput;
+        const findMaterial = await prisma.material.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findMaterial) { 
+            throw new Error("material not found!");
+        }
+
+        const materialUsageUpdate = await prisma.material.update({
+            where: {
+                id: id
+            },
+            data: {
+                usage: usage,
+                remain: remain
+            }
+        });
+        return materialUsageUpdate;
+    },
+
     AddThreeDP: async(_parents, args: {threeDPInput: ThreeDPInput}, context) => {
         const { name, category, position, description, photoLink, usage, tutorialLink } = args.threeDPInput;
         const newThreeDP = await prisma.threeDP.create({

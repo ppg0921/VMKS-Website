@@ -53,6 +53,34 @@ const Query = {
     const materials = await prisma.material.findMany();
     return materials;
   },
+  SearchMaterialsByCategory: async (_parents, args: { category: string }, context) => {
+    const category = args.category;
+    const searchMaterialsByCategory = await prisma.material.findMany({
+      where: {
+        category: {
+          startsWith: category
+        }
+      }
+    }); 
+    if (searchMaterialsByCategory.length === 0) {
+      throw new Error("materials not found!");
+    }
+
+    return searchMaterialsByCategory;
+  },
+  SearchMaterialsByPosition: async (_parents, args: { position: string }, context) => {
+    const position = args.position;
+    const searchMaterialsByPosition = await prisma.material.findMany({
+      where: {
+        position: position,
+      }
+    });
+    if (searchMaterialsByPosition.length === 0) {
+      throw new Error("materials not found!");
+    }
+
+    return searchMaterialsByPosition;
+  },
   AllUser: async () => {
     const users = await prisma.user.findMany();
     return users;
