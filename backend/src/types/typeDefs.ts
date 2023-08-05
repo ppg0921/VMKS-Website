@@ -228,6 +228,8 @@ const typeDefs = `#graphql
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
     AllMaterials: [Material]
+    SearchMaterialsByCategory(category: String!): [Material]
+    SearchMaterialsByPosition(position: String!): [Material]
     AllTools: [Tool]
     SearchToolsByCategory(category: String!): [Tool]
     SearchToolsByPosition(position: String!): [Tool]
