@@ -1,6 +1,6 @@
 import { Decimal } from "@prisma/client/runtime/library";
 import { prisma } from "../../prisma/client.ts";
-import { AnnouncementInput, ToolInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput, UserMaterialInput, ThreeDPInput, UserInput } from "../types/types.ts";
+import { AnnouncementInput, ToolInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput, UserMaterialInput, ThreeDPInput, UserInput } from "../types/types.ts";
 
 const Mutation = {
 
@@ -259,6 +259,29 @@ const Mutation = {
             }
         });
         return editMaterial;
+    },
+    MaterialUsageUpdate: async(_parents, args: { id: number, materialUsageUpdateInput: MaterialUsageUpdateInput }, context) => {
+        const id = args.id;
+        const { usage, remain } = args.materialUsageUpdateInput;
+        const findMaterial = await prisma.material.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findMaterial) { 
+            throw new Error("material not found!");
+        }
+
+        const materialUsageUpdate = await prisma.material.update({
+            where: {
+                id: id
+            },
+            data: {
+                usage: usage,
+                remain: remain
+            }
+        });
+        return materialUsageUpdate;
     },
 
     AddThreeDP: async(_parents, args: {threeDPInput: ThreeDPInput}, context) => {

@@ -79,6 +79,11 @@ const typeDefs = `#graphql
     fee: Int!
     remain: Int!
   }
+
+  input MaterialUsageUpdateInput {
+    usage: Int!
+    remain: Int!
+  }
   
   input ThreeDPInput{
     name:         String!
@@ -246,6 +251,7 @@ const typeDefs = `#graphql
     AddMaterial(materialInput: MaterialInput!): Material
     DeleteMaterial(id: Int!): Material
     EditMaterial(id: Int!, materialInput: MaterialInput!): Material
+    MaterialUsageUpdate(id: Int!, materialUsageUpdateInput: MaterialUsageUpdateInput!): Material
     AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
     DeleteUserMaterial(id: Int!): UserMaterial
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP

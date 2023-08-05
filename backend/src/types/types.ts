@@ -50,6 +50,11 @@ interface MaterialInput {
     remain: number
 }
 
+interface MaterialUsageUpdateInput {
+    usage: number,
+    remain: number
+}
+
 interface MachineInput {
     name: string,
     partName: string,
@@ -89,4 +94,4 @@ interface UserInput {
     laserCutAvailable: boolean,    
 }
 
-export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput }
+export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }
