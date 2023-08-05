@@ -244,6 +244,8 @@ const typeDefs = `#graphql
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material
+    DeleteMaterial(id: Int!): Material
+    EditMaterial(id: Int!, materialInput: MaterialInput!): Material
     AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
     DeleteUserMaterial(id: Int!): UserMaterial
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP

@@ -210,6 +210,57 @@ const Mutation = {
         });
         return newMaterial;
     },
+    DeleteMaterial: async(_parents, args: { id: number }, context) => {
+        const id = args.id;
+        const findMaterial = await prisma.material.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findMaterial) { 
+            throw new Error("material not found!");
+        }
+
+        const deleteMaterial = await prisma.material.delete({
+            where: {
+                id: id
+            }
+        });
+        return deleteMaterial;
+    },
+    EditMaterial: async(_parents, args: { id: number, materialInput: MaterialInput }, context) => {
+        const id = args.id;
+        const { name, partName, category, valuable, position, description, photoLink, usage, tutorialLink, fee, remain } = args.materialInput;
+        const findMaterial = await prisma.material.findFirst({
+            where: { 
+                id: id 
+            }
+        });
+        if (!findMaterial) { 
+            throw new Error("material not found!");
+        }
+
+        const editMaterial = await prisma.material.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                category: category,
+                valuable: valuable,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink,
+                fee: fee,
+                remain: remain
+            }
+        });
+        return editMaterial;
+    },
+
     AddThreeDP: async(_parents, args: {threeDPInput: ThreeDPInput}, context) => {
         const { name, category, position, description, photoLink, usage, tutorialLink } = args.threeDPInput;
         const newThreeDP = await prisma.threeDP.create({
