@@ -110,7 +110,7 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!   
     threeDPId: Int           
-    laserCutAvailable: Boolean        
+    laserCutAvailable: Boolean!        
   }
 
   type Announcement {
@@ -218,7 +218,7 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!
     threeDPId: Int
-    laserCutAvailable: Boolean
+    laserCutAvailable: Boolean!
     borrowHistoryId: [Int]
   }
 
@@ -238,7 +238,8 @@ const typeDefs = `#graphql
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
-    FindThreeDPByCategory(category: String!): [ThreeDP]
+    SearchThreeDPByCategory(category: String!): [ThreeDP]
+    SearchThreeDPByPosition(position: String!): [ThreeDP]
   }
 
   type Mutation {

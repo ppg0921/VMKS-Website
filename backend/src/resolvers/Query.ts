@@ -1,15 +1,25 @@
 import { prisma } from '../../prisma/client.ts'
 
 const Query = {
+ 
   AllAnnouncements: async (_parents, args, context) => {
-    const announcements = await prisma.announcement.findMany();
-    // console.log(announcements);
+    const announcements = await prisma.announcement.findMany({
+      orderBy: {
+        id: "desc"
+      }
+    });
     return announcements;
   },
+
   AllTools: async (_parents, args, context) => {
-    const tools = await prisma.tool.findMany();
+    const tools = await prisma.tool.findMany({
+      orderBy: {
+        usage: "desc"
+      }
+    });
     return tools;
   },
+
   SearchToolsByCategory: async (_parents, args: { category: string }, context) => {
     const category = args.category;
     const searchToolsByCategory = await prisma.tool.findMany({
@@ -17,40 +27,56 @@ const Query = {
         category: {
           startsWith: category
         }
+      },
+      orderBy: {
+        usage: "desc"
       }
     }); 
-    if (searchToolsByCategory.length === 0) {
-      throw new Error("tools not found!");
-    }
 
     return searchToolsByCategory;
   },
+
   SearchToolsByPosition: async (_parents, args: { position: string }, context) => {
     const position = args.position;
     const searchToolsByPosition = await prisma.tool.findMany({
       where: {
         position: position,
+      },
+      orderBy: {
+        usage: "desc"
       }
     });
-    if (searchToolsByPosition.length === 0) {
-      throw new Error("tools not found!");
-    }
 
     return searchToolsByPosition;
   },
+
   AllDisposableMaterials: async (_parents, args, context) => {
-    const materials = await prisma.disposableMaterial.findMany();
-    // console.log(materials);
+    const materials = await prisma.disposableMaterial.findMany({
+      orderBy: {
+        usage: "desc"
+      }
+    });
     return materials;
   },
+
   AllMachines: async (_parents, args, context) => {
-    const machines = await prisma.machine.findMany();
+    const machines = await prisma.machine.findMany({
+      orderBy: {
+        usage: "desc"
+      }
+    });
     return machines;
   },
+
   AllMaterials: async(_parents, args, context) => {
-    const materials = await prisma.material.findMany();
+    const materials = await prisma.material.findMany({
+      orderBy: {
+        usage: "desc"
+      }
+    });
     return materials;
   },
+
   SearchMaterialsByCategory: async (_parents, args: { category: string }, context) => {
     const category = args.category;
     const searchMaterialsByCategory = await prisma.material.findMany({
@@ -58,51 +84,86 @@ const Query = {
         category: {
           startsWith: category
         }
+      },
+      orderBy: {
+        usage: "desc"
       }
     }); 
-    if (searchMaterialsByCategory.length === 0) {
-      throw new Error("materials not found!");
-    }
 
     return searchMaterialsByCategory;
   },
+
   SearchMaterialsByPosition: async (_parents, args: { position: string }, context) => {
     const position = args.position;
     const searchMaterialsByPosition = await prisma.material.findMany({
       where: {
         position: position,
+      },
+      orderBy: {
+        usage: "desc"
       }
     });
-    if (searchMaterialsByPosition.length === 0) {
-      throw new Error("materials not found!");
-    }
 
     return searchMaterialsByPosition;
   },
-  AllUser: async () => {
-    const users = await prisma.user.findMany();
-    return users;
-  },
-  AllUserMaterials: async () => {
-    const UserMaterials = await prisma.userMaterial.findMany();
-    return UserMaterials;
-  },
+
   AllThreeDP: async () => {
-    const threeDP = await prisma.threeDP.findMany();
+    const threeDP = await prisma.threeDP.findMany({
+      orderBy: {
+        usage: "desc"
+      }
+    });
     return threeDP;
   },
-  FindThreeDPByCategory: async(_parents, args: {category: string}, context) => {
+
+  SearchThreeDPByCategory: async(_parents, args: { category: string }, context) => {
     const category = args.category;
-    console.log(category);
     const FindThreeDPByCategory = await prisma.threeDP.findMany({
       where: {
           category: {
             startsWith: category
           },          
       },
+      orderBy: {
+        usage: "desc"
+      }
     });   
     return FindThreeDPByCategory;
   },
+
+  SearchThreeDPByPosition: async(_parents, args: { position: string }, context) => {
+    const position = args.position;
+    const searchThreeDPByPosition = await prisma.threeDP.findMany({
+      where: {
+        position: position,
+      },
+      orderBy: {
+        usage: "desc"
+      }
+    });
+
+    return searchThreeDPByPosition;
+  },
+ 
+  AllUser: async () => {
+    const users = await prisma.user.findMany();
+    return users;
+  },
+
+  AllUserMaterials: async () => {
+    const UserMaterials = await prisma.userMaterial.findMany({
+      orderBy: [
+        {
+          borrowerId: "asc"
+        },
+        {
+          borrowNum: "desc"
+        }
+      ]
+    });
+    return UserMaterials;
+  },
+  
 }
 
 export { Query }
