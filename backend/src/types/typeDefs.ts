@@ -92,6 +92,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
+    broken:       Boolean!
   }
 
   input UserMaterialInput{
@@ -115,7 +116,7 @@ const typeDefs = `#graphql
   type Announcement {
     id: Int!
     title: String!
-    date: DateTime!
+    date: String!
     content: String!
   }
 
@@ -196,6 +197,7 @@ const typeDefs = `#graphql
     usage:        Int!
     tutorialLink: String!
     waitingId:    [Int]
+    broken:       Boolean!
   }
 
   type UserMaterial {

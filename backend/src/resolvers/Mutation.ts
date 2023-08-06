@@ -287,7 +287,7 @@ const Mutation = {
     },
 
     AddThreeDP: async(_parents, args: {threeDPInput: ThreeDPInput}, context) => {
-        const { name, category, position, description, photoLink, usage, tutorialLink } = args.threeDPInput;
+        const { name, category, position, description, photoLink, usage, tutorialLink, broken } = args.threeDPInput;
         const newThreeDP = await prisma.threeDP.create({
             data: {
                 name: name,
@@ -296,7 +296,8 @@ const Mutation = {
                 description: description,
                 photoLink: photoLink,
                 usage: usage,
-                tutorialLink: tutorialLink
+                tutorialLink: tutorialLink,
+                broken: broken
             }
         });
         return newThreeDP;

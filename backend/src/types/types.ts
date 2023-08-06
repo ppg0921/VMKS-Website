@@ -80,6 +80,7 @@ interface ThreeDPInput{
     photoLink: string,
     usage: number,
     tutorialLink: string,
+    broken: boolean
 }
 
 interface UserInput {
