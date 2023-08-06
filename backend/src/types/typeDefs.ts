@@ -1,5 +1,4 @@
 import { GraphQLScalarType, Kind } from 'graphql';
-import { getTsBuildInfoEmitOutputFilePath } from 'typescript';
 
 const DateTime = new GraphQLScalarType({
   name: 'DateTime',
