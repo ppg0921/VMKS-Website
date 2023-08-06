@@ -1,6 +1,3 @@
-import { User, ThreeDP, UserMaterial } from "@prisma/client"
-import { GraphQLScalarType, Kind } from 'graphql';
-
 interface AnnouncementInput {
     title: string,
     content: string
@@ -83,6 +80,7 @@ interface ThreeDPInput{
     photoLink: string,
     usage: number,
     tutorialLink: string,
+    broken: boolean
 }
 
 interface UserInput {

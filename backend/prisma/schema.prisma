@@ -69,7 +69,7 @@ model Machine {
 }
 
 model ThreeDP {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   name         String
   category     String
   position     String
@@ -79,6 +79,7 @@ model ThreeDP {
   tutorialLink String
   waiting      User[]
   waitingId    Int[]
+  broken       Boolean
 }
 
 model User {
@@ -89,7 +90,7 @@ model User {
   photoLink         String
   threeDPUse        ThreeDP?       @relation(fields: [threeDPId], references: [id])
   threeDPId         Int?
-  laserCutAvailable Boolean?        @default(false)
+  laserCutAvailable Boolean
   borrowHistory     UserMaterial[]
   borrowHistoryId   Int[]
 }

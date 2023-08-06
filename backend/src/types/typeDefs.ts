@@ -1,5 +1,4 @@
 import { GraphQLScalarType, Kind } from 'graphql';
-import { getTsBuildInfoEmitOutputFilePath } from 'typescript';
 
 const DateTime = new GraphQLScalarType({
   name: 'DateTime',
@@ -93,6 +92,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
+    broken:       Boolean!
   }
 
   input UserMaterialInput{
@@ -110,13 +110,13 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!   
     threeDPId: Int           
-    laserCutAvailable: Boolean        
+    laserCutAvailable: Boolean!        
   }
 
   type Announcement {
     id: Int!
     title: String!
-    date: DateTime!
+    date: String!
     content: String!
   }
 
@@ -197,6 +197,7 @@ const typeDefs = `#graphql
     usage:        Int!
     tutorialLink: String!
     waitingId:    [Int]
+    broken:       Boolean!
   }
 
   type UserMaterial {
@@ -217,7 +218,7 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!
     threeDPId: Int
-    laserCutAvailable: Boolean
+    laserCutAvailable: Boolean!
     borrowHistoryId: [Int]
   }
 
@@ -237,7 +238,8 @@ const typeDefs = `#graphql
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
-    FindThreeDPByCategory(category: String!): [ThreeDP]
+    SearchThreeDPByCategory(category: String!): [ThreeDP]
+    SearchThreeDPByPosition(position: String!): [ThreeDP]
   }
 
   type Mutation {
