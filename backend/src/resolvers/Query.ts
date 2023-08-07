@@ -1,7 +1,7 @@
 import { prisma } from '../../prisma/client.ts'
 
 const Query = {
- 
+
   AllAnnouncements: async (_parents, args, context) => {
     const announcements = await prisma.announcement.findMany({
       orderBy: {
@@ -31,7 +31,7 @@ const Query = {
       orderBy: {
         usage: "desc"
       }
-    }); 
+    });
 
     return searchToolsByCategory;
   },
@@ -68,7 +68,35 @@ const Query = {
     return machines;
   },
 
-  AllMaterials: async(_parents, args, context) => {
+  SearchMachinesByCategory: async (_parents, args: { category: string }, context) => {
+    const category = args.category;
+    const searchMachinesByCategory = await prisma.machine.findMany({
+      where: {
+        category: {
+          startsWith: category
+        }
+      },
+      orderBy: {
+        usage: "desc"
+      }
+    });
+    return searchMachinesByCategory;
+  },
+
+  SearchMachinesByPosition: async (_parents, args: { position: string }, context) => {
+    const position = args.position;
+    const searchMachinesByPosition = await prisma.machine.findMany({
+      where: {
+        position: position
+      },
+      orderBy: {
+        usage: "desc"
+      }
+    });
+    return searchMachinesByPosition;
+  },
+
+  AllMaterials: async (_parents, args, context) => {
     const materials = await prisma.material.findMany({
       orderBy: {
         usage: "desc"
@@ -88,7 +116,7 @@ const Query = {
       orderBy: {
         usage: "desc"
       }
-    }); 
+    });
 
     return searchMaterialsByCategory;
   },
@@ -116,22 +144,22 @@ const Query = {
     return threeDP;
   },
 
-  SearchThreeDPByCategory: async(_parents, args: { category: string }, context) => {
+  SearchThreeDPByCategory: async (_parents, args: { category: string }, context) => {
     const category = args.category;
     const FindThreeDPByCategory = await prisma.threeDP.findMany({
       where: {
-          category: {
-            startsWith: category
-          },          
+        category: {
+          startsWith: category
+        },
       },
       orderBy: {
         usage: "desc"
       }
-    });   
+    });
     return FindThreeDPByCategory;
   },
 
-  SearchThreeDPByPosition: async(_parents, args: { position: string }, context) => {
+  SearchThreeDPByPosition: async (_parents, args: { position: string }, context) => {
     const position = args.position;
     const searchThreeDPByPosition = await prisma.threeDP.findMany({
       where: {
@@ -144,7 +172,7 @@ const Query = {
 
     return searchThreeDPByPosition;
   },
- 
+
   AllUser: async () => {
     const users = await prisma.user.findMany();
     return users;
@@ -163,7 +191,7 @@ const Query = {
     });
     return UserMaterials;
   },
-  
+
 }
 
 export { Query }

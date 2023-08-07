@@ -1,8 +1,10 @@
 import { prisma } from "../../prisma/client.ts";
-import { AnnouncementInput, ToolInput, ToolUsageUpdateInput, 
-         DisposableMaterialInput, MachineInput, MaterialInput, 
-         MaterialUsageUpdateInput, UserMaterialInput, ThreeDPInput, 
-         UserInput } from "../types/types.ts";
+import {
+    AnnouncementInput, ToolInput, ToolUsageUpdateInput,
+    DisposableMaterialInput, MachineInput, MaterialInput,
+    MaterialUsageUpdateInput, UserMaterialInput, ThreeDPInput,
+    UserInput
+} from "../types/types.ts";
 
 const Mutation = {
 
@@ -20,14 +22,14 @@ const Mutation = {
         return newAnnouncement;
     },
 
-    DeleteAnnouncement: async(_parents, args: { id: number }, context) => {
+    DeleteAnnouncement: async (_parents, args: { id: number }, context) => {
         const id = args.id;
         const findAnnouncement = await prisma.announcement.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findAnnouncement) { 
+        if (!findAnnouncement) {
             throw new Error("announcement not found!");
         }
 
@@ -39,15 +41,15 @@ const Mutation = {
         return deleteAnnouncement;
     },
 
-    EditAnnouncement: async(_parents, args: { id: number, announcementInput: AnnouncementInput }, context) => {
+    EditAnnouncement: async (_parents, args: { id: number, announcementInput: AnnouncementInput }, context) => {
         const id = args.id;
         const { title, content } = args.announcementInput;
         const findAnnouncement = await prisma.announcement.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findAnnouncement) { 
+        if (!findAnnouncement) {
             throw new Error("announcement not found!");
         }
 
@@ -64,8 +66,8 @@ const Mutation = {
     },
 
     AddTool: async (_parents, args: { toolInput: ToolInput }, context) => {
-        const { name, partName, category, position, description, 
-                photoLink, usage, tutorialLink, remain } = args.toolInput;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink, remain } = args.toolInput;
         const newTool = await prisma.tool.create({
             data: {
                 name: name,
@@ -83,14 +85,14 @@ const Mutation = {
         return newTool;
     },
 
-    DeleteTool: async(_parents, args: { id: number }, context) => {
+    DeleteTool: async (_parents, args: { id: number }, context) => {
         const id = args.id;
         const findTool = await prisma.tool.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findTool) { 
+        if (!findTool) {
             throw new Error("tool not found!");
         }
 
@@ -102,16 +104,16 @@ const Mutation = {
         return deleteTool;
     },
 
-    EditTool: async(_parents, args: { id: number, toolInput: ToolInput }, context) => {
+    EditTool: async (_parents, args: { id: number, toolInput: ToolInput }, context) => {
         const id = args.id;
-        const { name, partName, category, position, description, 
-                photoLink, usage, tutorialLink, remain } = args.toolInput;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink, remain } = args.toolInput;
         const findTool = await prisma.tool.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findTool) { 
+        if (!findTool) {
             throw new Error("tool not found!");
         }
 
@@ -134,15 +136,15 @@ const Mutation = {
         return editTool;
     },
 
-    ToolUsageUpdate: async(_parents, args: { id: number, toolUsageUpdateInput: ToolUsageUpdateInput }, context) => {
+    ToolUsageUpdate: async (_parents, args: { id: number, toolUsageUpdateInput: ToolUsageUpdateInput }, context) => {
         const id = args.id;
         const { usage, remain } = args.toolUsageUpdateInput;
         const findTool = await prisma.tool.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findTool) { 
+        if (!findTool) {
             throw new Error("tool not found!");
         }
 
@@ -159,8 +161,8 @@ const Mutation = {
     },
 
     AddDisposableMaterial: async (_parents, args: { disposableMaterialInput: DisposableMaterialInput }, context) => {
-        const { name, partName, category, position, description, 
-                photoLink, usage, tutorialLink, fee, remain } = args.disposableMaterialInput;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink, fee, remain } = args.disposableMaterialInput;
         const newDisposableMaterial = await prisma.disposableMaterial.create({
             data: {
                 name: name,
@@ -180,8 +182,8 @@ const Mutation = {
     },
 
     AddMachine: async (_parents, args: { machineInput: MachineInput }, content) => {
-        const { name, partName, category, position, description, 
-                photoLink, usage, tutorialLink } = args.machineInput;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink } = args.machineInput;
         const newMachine = await prisma.machine.create({
             data: {
                 name: name,
@@ -198,10 +200,58 @@ const Mutation = {
         return newMachine;
     },
 
-    AddMaterial: async(_parents, args: {materialInput: MaterialInput}, context) => {
-        const { name, partName, category, valuable, position, 
-                description, photoLink, usage, tutorialLink, fee, 
-                remain } = args.materialInput;
+    DeleteMachine: async (_parents, args: { id: number }, context) => {
+        const id = args.id
+        const findMachine = await prisma.machine.findFirst({
+            where: {
+                id: id
+            }
+        })
+        if (!findMachine) {
+            throw new Error("machine not found!");
+        }
+        const deleteMachine = await prisma.machine.delete({
+            where: {
+                id: id
+            }
+        });
+        return deleteMachine;
+    },
+
+    EditMachine: async (_parents, args: { id: number, machineInput: MachineInput }, context) => {
+        const id = args.id;
+        const { name, partName, category, position, description,
+            photoLink, usage, tutorialLink } = args.machineInput;
+        const findMachine = await prisma.machine.findFirst({
+            where: {
+                id: id
+            }
+        });
+        if (!findMachine) {
+            throw new Error("machine not found!");
+        }
+        const editMachine = await prisma.machine.update({
+            where: {
+                id: id
+            },
+            data: {
+                name: name,
+                partName: partName,
+                category: category,
+                position: position,
+                description: description,
+                photoLink: photoLink,
+                usage: usage,
+                tutorialLink: tutorialLink
+            }
+        });
+        return editMachine;
+    },
+
+    AddMaterial: async (_parents, args: { materialInput: MaterialInput }, context) => {
+        const { name, partName, category, valuable, position,
+            description, photoLink, usage, tutorialLink, fee,
+            remain } = args.materialInput;
         const newMaterial = await prisma.material.create({
             data: {
                 name: name,
@@ -221,14 +271,14 @@ const Mutation = {
         return newMaterial;
     },
 
-    DeleteMaterial: async(_parents, args: { id: number }, context) => {
+    DeleteMaterial: async (_parents, args: { id: number }, context) => {
         const id = args.id;
         const findMaterial = await prisma.material.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findMaterial) { 
+        if (!findMaterial) {
             throw new Error("material not found!");
         }
 
@@ -240,17 +290,17 @@ const Mutation = {
         return deleteMaterial;
     },
 
-    EditMaterial: async(_parents, args: { id: number, materialInput: MaterialInput }, context) => {
+    EditMaterial: async (_parents, args: { id: number, materialInput: MaterialInput }, context) => {
         const id = args.id;
-        const { name, partName, category, valuable, position, 
-                description, photoLink, usage, tutorialLink, fee, 
-                remain } = args.materialInput;
+        const { name, partName, category, valuable, position,
+            description, photoLink, usage, tutorialLink, fee,
+            remain } = args.materialInput;
         const findMaterial = await prisma.material.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findMaterial) { 
+        if (!findMaterial) {
             throw new Error("material not found!");
         }
 
@@ -275,15 +325,15 @@ const Mutation = {
         return editMaterial;
     },
 
-    MaterialUsageUpdate: async(_parents, args: { id: number, materialUsageUpdateInput: MaterialUsageUpdateInput }, context) => {
+    MaterialUsageUpdate: async (_parents, args: { id: number, materialUsageUpdateInput: MaterialUsageUpdateInput }, context) => {
         const id = args.id;
         const { usage, remain } = args.materialUsageUpdateInput;
         const findMaterial = await prisma.material.findFirst({
-            where: { 
-                id: id 
+            where: {
+                id: id
             }
         });
-        if (!findMaterial) { 
+        if (!findMaterial) {
             throw new Error("material not found!");
         }
 
@@ -299,9 +349,9 @@ const Mutation = {
         return materialUsageUpdate;
     },
 
-    AddThreeDP: async(_parents, args: { threeDPInput: ThreeDPInput }, context) => {
-        const { name, category, position, description, photoLink, 
-                usage, tutorialLink, broken } = args.threeDPInput;
+    AddThreeDP: async (_parents, args: { threeDPInput: ThreeDPInput }, context) => {
+        const { name, category, position, description, photoLink,
+            usage, tutorialLink, broken } = args.threeDPInput;
         const newThreeDP = await prisma.threeDP.create({
             data: {
                 name: name,
@@ -319,7 +369,7 @@ const Mutation = {
         return newThreeDP;
     },
 
-    DeleteThreeDP: async(_parents, args: { id: number }, context) => {
+    DeleteThreeDP: async (_parents, args: { id: number }, context) => {
         const id = args.id;
         const findThreeDP = await prisma.threeDP.findFirst({
             where: {
@@ -332,7 +382,7 @@ const Mutation = {
 
         // checks if any user is linked to this threeDP instead of checking if the 
         // waiting line is empty is to minimize and simplify input variables
-        const findAffiliatedUser = await prisma.user.findMany({  
+        const findAffiliatedUser = await prisma.user.findMany({
             where: {
                 threeDPId: id
             }
@@ -349,16 +399,16 @@ const Mutation = {
         return DeleteThreeDP;
     },
 
-    AddUserMaterial: async(_parents, args: { userMaterialInput: UserMaterialInput }, context) => {
-        const { name, partName, borrowerId, borrowNum, status} = args.userMaterialInput;
+    AddUserMaterial: async (_parents, args: { userMaterialInput: UserMaterialInput }, context) => {
+        const { name, partName, borrowerId, borrowNum, status } = args.userMaterialInput;
         const findBorrower = await prisma.user.findFirst({
             where: {
                 id: borrowerId
             }
         })
-        if (!findBorrower){
+        if (!findBorrower) {
             throw new Error("Borrower not found!");
-        } 
+        }
 
         const borrowDate = new Date().toUTCString();
         const newUserMaterial = await prisma.userMaterial.create({
@@ -377,8 +427,8 @@ const Mutation = {
             where: {
                 id: borrowerId
             },
-            data:{
-                borrowHistoryId: { push: newUserMaterial.id } 
+            data: {
+                borrowHistoryId: { push: newUserMaterial.id }
             }
         });
 
@@ -386,7 +436,7 @@ const Mutation = {
     },
 
     // maybe useless
-    DeleteUserMaterial: async(_parents, args: { id: number }, context) => {
+    DeleteUserMaterial: async (_parents, args: { id: number }, context) => {
         const id = args.id;
         const findUserMaterial = await prisma.userMaterial.findFirst({
             where: {
@@ -395,7 +445,7 @@ const Mutation = {
         });
         if (!findUserMaterial) {
             throw new Error("User Material Not Found");
-        } 
+        }
 
         // delete UserMaterial in User.borrowHistoryId
         const userId = findUserMaterial.borrowerId;
@@ -409,13 +459,13 @@ const Mutation = {
         borrowHistoryID.splice(index, 1);
         const updateBorrower = await prisma.user.update({
             where: {
-               id: userId 
+                id: userId
             },
             data: {
                 borrowHistoryId: borrowHistoryID
             }
         });
-        
+
         const DeleteUserMaterial = await prisma.userMaterial.delete({
             where: {
                 id: id
@@ -424,23 +474,23 @@ const Mutation = {
         return DeleteUserMaterial;
     },
 
-    AddUser: async(_parents, args: { userInput: UserInput }, context) => {
-        const { name, studentID, password, photoLink, threeDPId, 
-                laserCutAvailable } = args.userInput;
-        if (threeDPId){
+    AddUser: async (_parents, args: { userInput: UserInput }, context) => {
+        const { name, studentID, password, photoLink, threeDPId,
+            laserCutAvailable } = args.userInput;
+        if (threeDPId) {
             const findThreeDP = await prisma.threeDP.findFirst({
                 where: {
                     id: threeDPId
                 }
             })
 
-            if (!findThreeDP){
+            if (!findThreeDP) {
                 throw new Error("threeDP ID not found!");
-            } 
+            }
         }
 
         const newUsers = await prisma.user.create({
-            data:{
+            data: {
                 name: name,
                 studentID: studentID,
                 password: password,
@@ -451,13 +501,13 @@ const Mutation = {
             }
         });
 
-        if (threeDPId){
+        if (threeDPId) {
             const updateWaiting = await prisma.threeDP.update({
                 where: {
                     id: threeDPId
                 },
-                data:{
-                    waitingId: { push: newUsers.id } 
+                data: {
+                    waitingId: { push: newUsers.id }
                 }
             });
         }
@@ -465,7 +515,7 @@ const Mutation = {
         return newUsers;
     },
 
-    DeleteUser: async(_parents, args: { id: number }, context) => {
+    DeleteUser: async (_parents, args: { id: number }, context) => {
         const id = args.id;
         const findUser = await prisma.user.findFirst({
             where: {
@@ -475,19 +525,19 @@ const Mutation = {
         if (!findUser) {
             throw new Error(`User With id: ${id} Not Found`)
         }
-        
+
         // checks if any userMaterial is linked to this user instead of checking if the 
         // borrowHistory is empty is to minimize and simplify input variables
-        const findNotReturnedMaterials = await prisma.userMaterial.findMany({ 
-          where: {
-              borrowerId: id
-          }
+        const findNotReturnedMaterials = await prisma.userMaterial.findMany({
+            where: {
+                borrowerId: id
+            }
         });
-        if (findNotReturnedMaterials.length !== 0){
-          throw new Error("There are materials lent by this user");
+        if (findNotReturnedMaterials.length !== 0) {
+            throw new Error("There are materials lent by this user");
         }
 
-        if(findUser.threeDPId){
+        if (findUser.threeDPId) {
             const threeDPID = findUser.threeDPId;
             const findThreeDP = await prisma.threeDP.findFirst({
                 where: {
@@ -513,7 +563,7 @@ const Mutation = {
             }
         });
         return DeleteUser;
-      }
+    }
 
 }
 
