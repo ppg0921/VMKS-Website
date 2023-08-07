@@ -235,6 +235,8 @@ const typeDefs = `#graphql
     SearchToolsByCategory(category: String!): [Tool]
     SearchToolsByPosition(position: String!): [Tool]
     AllMachines: [Machine]
+    SearchMachinesByCategory(category: String!): [Machine]
+    SearchMachinesByPosition(position: String!): [Machine]
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
@@ -252,6 +254,8 @@ const typeDefs = `#graphql
     ToolUsageUpdate(id: Int!, toolUsageUpdateInput: ToolUsageUpdateInput!): Tool # update usage & remain
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
+    DeleteMachine(id: Int!): Machine
+    EditMachine(id: Int!, machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material
     DeleteMaterial(id: Int!): Material
     EditMaterial(id: Int!, materialInput: MaterialInput!): Material
