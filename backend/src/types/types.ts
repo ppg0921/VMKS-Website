@@ -1,6 +1,3 @@
-import { User, ThreeDP, UserMaterial } from "@prisma/client"
-import { GraphQLScalarType, Kind } from 'graphql';
-
 interface AnnouncementInput {
     title: string,
     content: string
@@ -50,6 +47,11 @@ interface MaterialInput {
     remain: number
 }
 
+interface MaterialUsageUpdateInput {
+    usage: number,
+    remain: number
+}
+
 interface MachineInput {
     name: string,
     partName: string,
@@ -78,6 +80,7 @@ interface ThreeDPInput{
     photoLink: string,
     usage: number,
     tutorialLink: string,
+    broken: boolean
 }
 
 interface UserInput {
@@ -89,4 +92,4 @@ interface UserInput {
     laserCutAvailable: boolean,    
 }
 
-export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput,DisposableMaterialInput, MachineInput, MaterialInput }
+export { AnnouncementInput, ToolInput, UserMaterialInput, ThreeDPInput, UserInput, ToolUsageUpdateInput, DisposableMaterialInput, MachineInput, MaterialInput, MaterialUsageUpdateInput }

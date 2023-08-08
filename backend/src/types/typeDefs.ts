@@ -1,5 +1,4 @@
 import { GraphQLScalarType, Kind } from 'graphql';
-import { getTsBuildInfoEmitOutputFilePath } from 'typescript';
 
 const DateTime = new GraphQLScalarType({
   name: 'DateTime',
@@ -79,6 +78,11 @@ const typeDefs = `#graphql
     fee: Int!
     remain: Int!
   }
+
+  input MaterialUsageUpdateInput {
+    usage: Int!
+    remain: Int!
+  }
   
   input ThreeDPInput{
     name:         String!
@@ -88,6 +92,7 @@ const typeDefs = `#graphql
     photoLink:    String!
     usage:        Int!
     tutorialLink: String!
+    broken:       Boolean!
   }
 
   input UserMaterialInput{
@@ -105,13 +110,13 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!   
     threeDPId: Int           
-    laserCutAvailable: Boolean        
+    laserCutAvailable: Boolean!        
   }
 
   type Announcement {
     id: Int!
     title: String!
-    date: DateTime!
+    date: String!
     content: String!
   }
 
@@ -192,6 +197,7 @@ const typeDefs = `#graphql
     usage:        Int!
     tutorialLink: String!
     waitingId:    [Int]
+    broken:       Boolean!
   }
 
   type UserMaterial {
@@ -212,7 +218,7 @@ const typeDefs = `#graphql
     password: String!
     photoLink: String!
     threeDPId: Int
-    laserCutAvailable: Boolean
+    laserCutAvailable: Boolean!
     borrowHistoryId: [Int]
   }
 
@@ -223,14 +229,19 @@ const typeDefs = `#graphql
     AllAnnouncements: [Announcement]
     AllDisposableMaterials: [DisposableMaterial]
     AllMaterials: [Material]
+    SearchMaterialsByCategory(category: String!): [Material]
+    SearchMaterialsByPosition(position: String!): [Material]
     AllTools: [Tool]
     SearchToolsByCategory(category: String!): [Tool]
     SearchToolsByPosition(position: String!): [Tool]
     AllMachines: [Machine]
+    SearchMachinesByCategory(category: String!): [Machine]
+    SearchMachinesByPosition(position: String!): [Machine]
     AllUser: [User]
     AllUserMaterials: [UserMaterial]
     AllThreeDP: [ThreeDP]
-    FindThreeDPByCategory(category: String!): [ThreeDP]
+    SearchThreeDPByCategory(category: String!): [ThreeDP]
+    SearchThreeDPByPosition(position: String!): [ThreeDP]
   }
 
   type Mutation {
@@ -243,13 +254,24 @@ const typeDefs = `#graphql
     ToolUsageUpdate(id: Int!, toolUsageUpdateInput: ToolUsageUpdateInput!): Tool # update usage & remain
     AddDisposableMaterial(disposableMaterialInput: DisposableMaterialInput!): DisposableMaterial
     AddMachine(machineInput: MachineInput!): Machine
+    DeleteMachine(id: Int!): Machine
+    EditMachine(id: Int!, machineInput: MachineInput!): Machine
     AddMaterial(materialInput: MaterialInput!): Material
+    DeleteMaterial(id: Int!): Material
+    EditMaterial(id: Int!, materialInput: MaterialInput!): Material
+    MaterialUsageUpdate(id: Int!, materialUsageUpdateInput: MaterialUsageUpdateInput!): Material
     AddUserMaterial(userMaterialInput: UserMaterialInput!): UserMaterial
     DeleteUserMaterial(id: Int!): UserMaterial
     AddThreeDP(threeDPInput: ThreeDPInput!): ThreeDP
     DeleteThreeDP(id: Int!): ThreeDP
     AddUser(userInput: UserInput!) : User
     DeleteUser(id: Int!): User
+  }
+
+  type Subscription {
+    AnnouncementCreated: Announcement
+    AnnouncementDeleted: Announcement
+    AnnouncementUpdated: Announcement
   }
 `;
 
